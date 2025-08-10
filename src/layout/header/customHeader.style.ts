@@ -2,7 +2,7 @@ import { createStyles } from "@mantine/emotion";
 
 export const useStyles = createStyles((theme) => ({
   header: {
-    height: 75,
+    height: 90,
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
@@ -16,17 +16,26 @@ export const useStyles = createStyles((theme) => ({
 
   mainLink: {
     textTransform: "uppercase",
-    fontSize: theme.fontSizes.xs,
+    fontSize: theme.fontSizes.md, // maior que xs
     color: theme.colors.gray[4],
-    padding: `7px ${theme.spacing.sm}`,
-    fontWeight: 500,
-    borderBottom: "2px solid transparent",
-    transition: "border-color 100ms ease, color 100ms ease",
+    padding: `7px ${theme.spacing.md}`,
+    fontWeight: 600,
+    borderBottom: "3px solid transparent",
+    transition: "border-color 150ms ease, color 150ms ease",
     textDecoration: "none",
+
+    "&[data-active='true']": {
+      color: "#FCC01D",
+      borderBottomColor: "#FCC01D", // barra amarela ativa
+    },
 
     "&:hover": {
       color: "#FCC01D",
-      textDecoration: "none",
+    },
+
+    [`@media (max-width: ${theme.breakpoints.sm})`]: {
+      fontSize: theme.fontSizes.sm,
+      padding: `5px ${theme.spacing.sm}`,
     },
   },
 

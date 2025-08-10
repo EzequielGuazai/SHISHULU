@@ -19,5 +19,5 @@ export const RoutesComponent: React.FC = () => {
                 </Routes>
             </React.Suspense>
         </>
-    )
+    ) 
 }

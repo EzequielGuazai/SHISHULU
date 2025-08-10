@@ -17,7 +17,7 @@ export default function CustomHeader() {
     const { classes } = useStyles();
     const [checked, setChecked] = useState(false);
     const [opened, { toggle }] = useDisclosure(false);
-    const [active, setActive] = useState(0);
+    const [, setActive] = useState(0);
 
     const location = useLocation();
 
@@ -35,7 +35,7 @@ export default function CustomHeader() {
 
     return (
         <header className={classes.header}>
-            <Text fw={900} c="#FCC01D">SHISHULU</Text>
+            <Text fw={900} c="#FCC01D" style={{ fontSize: "clamp(1.5rem, 5vw, 2rem)" }}>SHISHULU</Text>
 
             <Container>
                 <Box visibleFrom="sm">
