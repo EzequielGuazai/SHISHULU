@@ -37,7 +37,7 @@ export default function Home() {
                         }}
                         c="#fff"
                     >
-                        O <strong>Shishulu</strong> é mais do que uma plataforma — é um movimento que preserva e celebra as tradições de Cabo Delgado. Aqui, a música, a dança, a gastronomia, a arte e a história encontram-se para dar vida às nossas raízes e inspirar novas gerações. Valorizamos cada som, cada cor e cada sabor da nossa terra, criando pontes entre passado e futuro, tradição e inovação. Junte-se a nós nesta jornada de orgulho e identidade, onde a cultura não é apenas lembrada, mas vivida todos os dias.
+                        <strong>Shishulu</strong> é mais do que uma plataforma — é um movimento que preserva e celebra as tradições de Cabo Delgado. Aqui, a música, a dança, a gastronomia, a arte e a história encontram-se para dar vida às nossas raízes e inspirar novas gerações. Valorizamos cada som, cada cor e cada sabor da nossa terra, criando pontes entre passado e futuro, tradição e inovação. Junte-se a nós nesta jornada de orgulho e identidade, onde a cultura não é apenas lembrada, mas vivida todos os dias.
                     </Text>
 
                     <Space h="xl" />
