@@ -17,12 +17,14 @@ import {
     Checkbox,
     Box,
     Stepper,
+    Progress,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
-import { IconUpload, IconCheck, IconUser, IconUsers } from "@tabler/icons-react";
+import { IconUpload, IconCheck, IconUser, IconUsers, IconPalette, IconFileCheck } from "@tabler/icons-react";
 import { useState } from "react";
 import { useStyles } from "./Inscricao.styles";
+import { useMediaQuery } from "@mantine/hooks";
 
 const tiposArte = [
     { value: "musica", label: "Música Tradicional" },
@@ -56,10 +58,18 @@ const distritos = [
     "Meluco",
 ];
 
+const steps = [
+    { icon: IconUser, label: "Dados Pessoais", description: "Informações básicas" },
+    { icon: IconUsers, label: "Tipo de Inscrição", description: "Individual ou grupo" },
+    { icon: IconPalette, label: "Actividade Artística", description: "Áreas de actuação" },
+    { icon: IconFileCheck, label: "Revisão", description: "Confirme os dados" },
+];
+
 export default function Inscricao() {
     const { classes } = useStyles();
     const [active, setActive] = useState(0);
     const [tipoInscricao, setTipoInscricao] = useState<"individual" | "grupo">("individual");
+    const isMobile = useMediaQuery('(max-width: 768px)');
 
     const form = useForm({
         initialValues: {
@@ -148,6 +158,32 @@ export default function Inscricao() {
         });
     };
 
+    const renderMobileProgress = () => {
+        const CurrentIcon = steps[active].icon;
+        const progress = ((active + 1) / steps.length) * 100;
+
+        return (
+            <Box className={classes.mobileProgress}>
+                <Group justify="space-between" mb="xs">
+                    <Group gap="xs">
+                        <Box className={classes.mobileIconWrapper}>
+                            <CurrentIcon size={20} />
+                        </Box>
+                        <Box>
+                            <Text size="sm" fw={600} c="#FCC01D">
+                                Passo {active + 1} de {steps.length}
+                            </Text>
+                            <Text size="xs" c="rgba(255, 255, 255, 0.6)">
+                                {steps[active].label}
+                            </Text>
+                        </Box>
+                    </Group>
+                </Group>
+                <Progress value={progress} color="#FCC01D" size="sm" radius="xl" />
+            </Box>
+        );
+    };
+
     return (
         <div className={classes.wrapper}>
             <Container size="lg" py={60}>
@@ -160,10 +196,49 @@ export default function Inscricao() {
                     </Text>
                 </Box>
 
-                <Paper className={classes.formPaper} radius="md" p={40} mt={40}>
-                    <Stepper active={active} onStepClick={setActive} color="#FCC01D">
-                        <Stepper.Step label="Dados Pessoais" description="Informações básicas" icon={<IconUser size={18} />}>
-                            <Stack gap="md" mt="xl">
+                <Paper className={classes.formPaper} radius="md" p={{ base: 20, sm: 40 }} mt={40}>
+                    {/* Mobile Progress Indicator */}
+                    {isMobile && renderMobileProgress()}
+
+                    {/* Desktop Stepper */}
+                    {!isMobile && (
+                        <Stepper
+                            active={active}
+                            onStepClick={setActive}
+                            color="#FCC01D"
+                            classNames={{
+                                stepLabel: classes.stepLabel,
+                                stepDescription: classes.stepDescription,
+                                separator: classes.separator,
+                            }}
+                        >
+                            <Stepper.Step
+                                label="Dados Pessoais"
+                                description="Informações básicas"
+                                icon={<IconUser size={18} />}
+                            />
+                            <Stepper.Step
+                                label="Tipo de Inscrição"
+                                description="Individual ou grupo"
+                                icon={<IconUsers size={18} />}
+                            />
+                            <Stepper.Step
+                                label="Actividade Artística"
+                                description="Áreas de actuação"
+                                icon={<IconPalette size={18} />}
+                            />
+                            <Stepper.Step
+                                label="Revisão"
+                                description="Confirme os dados"
+                                icon={<IconFileCheck size={18} />}
+                            />
+                        </Stepper>
+                    )}
+
+                    {/* Form Content */}
+                    <Box mt="xl">
+                        {active === 0 && (
+                            <Stack gap="md">
                                 <TextInput
                                     label="Nome Completo"
                                     placeholder="Seu nome completo"
@@ -271,10 +346,10 @@ export default function Inscricao() {
                                     </Grid.Col>
                                 </Grid>
                             </Stack>
-                        </Stepper.Step>
+                        )}
 
-                        <Stepper.Step label="Tipo de Inscrição" description="Individual ou grupo" icon={<IconUsers size={18} />}>
-                            <Stack gap="md" mt="xl">
+                        {active === 1 && (
+                            <Stack gap="md">
                                 <Radio.Group
                                     value={tipoInscricao}
                                     onChange={(value) => {
@@ -284,10 +359,10 @@ export default function Inscricao() {
                                     label="Como deseja se inscrever?"
                                     required
                                 >
-                                    <Group mt="xs">
+                                    <Stack mt="xs" gap="sm">
                                         <Radio value="individual" label="Individual" />
                                         <Radio value="grupo" label="Grupo/Colectivo" />
-                                    </Group>
+                                    </Stack>
                                 </Radio.Group>
 
                                 {tipoInscricao === "grupo" && (
@@ -317,10 +392,10 @@ export default function Inscricao() {
                                     </>
                                 )}
                             </Stack>
-                        </Stepper.Step>
+                        )}
 
-                        <Stepper.Step label="Actividade Artística" description="Áreas de actuação" >
-                            <Stack gap="md" mt="xl">
+                        {active === 2 && (
+                            <Stack gap="md">
                                 <MultiSelect
                                     label="Áreas de Actuação"
                                     placeholder="Selecione suas áreas artísticas"
@@ -353,10 +428,10 @@ export default function Inscricao() {
                                     {...form.getInputProps("objectivos")}
                                 />
                             </Stack>
-                        </Stepper.Step>
+                        )}
 
-                        <Stepper.Step label="Revisão" description="Confirme os dados">
-                            <Stack gap="md" mt="xl">
+                        {active === 3 && (
+                            <Stack gap="md">
                                 <Box className={classes.reviewSection}>
                                     <Title order={4} c="#FCC01D" mb="sm">
                                         Documentos Necessários
@@ -382,7 +457,7 @@ export default function Inscricao() {
 
                                 <Checkbox
                                     label={
-                                        <Text size="sm">
+                                        <Text size="sm" c="#fff">
                                             Declaro que as informações fornecidas são verdadeiras e estou ciente de que
                                             a Shishulu visa preservar e promover a cultura de Cabo Delgado de forma
                                             autêntica e respeitosa.
@@ -392,9 +467,9 @@ export default function Inscricao() {
                                     {...form.getInputProps("aceitaTermos", { type: "checkbox" })}
                                 />
                             </Stack>
-                        </Stepper.Step>
+                        )}
 
-                        <Stepper.Completed>
+                        {active === 4 && (
                             <Box className={classes.completedSection}>
                                 <IconCheck size={60} color="#FCC01D" />
                                 <Title order={3} c="#FCC01D" mt="md">
@@ -404,20 +479,35 @@ export default function Inscricao() {
                                     A sua inscrição foi recebida com sucesso. Entraremos em contacto em breve.
                                 </Text>
                             </Box>
-                        </Stepper.Completed>
-                    </Stepper>
+                        )}
+                    </Box>
 
                     <Group justify="space-between" mt="xl">
-                        <Button variant="default" onClick={prevStep} disabled={active === 0}>
+                        <Button
+                            variant="default"
+                            onClick={prevStep}
+                            disabled={active === 0}
+                            size={isMobile ? "md" : "lg"}
+                        >
                             Voltar
                         </Button>
                         {active < 3 ? (
-                            <Button onClick={nextStep} bg="#FCC01D" c="#000">
+                            <Button
+                                onClick={nextStep}
+                                bg="#FCC01D"
+                                c="#000"
+                                size={isMobile ? "md" : "lg"}
+                            >
                                 Próximo
                             </Button>
                         ) : (
-                            <Button onClick={() => form.onSubmit(handleSubmit)()} bg="#FCC01D" c="#000">
-                                Enviar Candidatura
+                            <Button
+                                onClick={() => form.onSubmit(handleSubmit)()}
+                                bg="#FCC01D"
+                                c="#000"
+                                size={isMobile ? "md" : "lg"}
+                            >
+                                Enviar
                             </Button>
                         )}
                     </Group>
