@@ -85,7 +85,12 @@ export const useStyles = createStyles((theme) => ({
         gap: rem(16),
         flexWrap: "wrap",
         animation: "fadeInUp 0.6s ease-out 0.5s both",
+
+        [`@media (max-width: ${theme.breakpoints.md})`]: {
+            justifyContent: "center", // Centraliza os botões
+        },
     },
+
 
     ctaButton: {
         backgroundColor: "#FCC01D",
@@ -161,6 +166,14 @@ export const useStyles = createStyles((theme) => ({
         objectFit: "cover",
         display: "block",
         transition: "transform 0.6s ease",
+
+        [`@media (max-width: ${theme.breakpoints.md})`]: {
+            paddingTop: rem(20),
+            objectFit: "contain", // Mostra a imagem inteira
+            height: "auto",
+            minHeight: "unset",
+            width: "100%",
+        },
     },
 
     imageOverlay: {
