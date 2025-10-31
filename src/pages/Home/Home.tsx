@@ -1,61 +1,76 @@
-import { Grid, Title, Text, Button, Space } from "@mantine/core";
+import { Grid, Title, Text, Button, Space, Container, Box } from "@mantine/core";
 import bg from '../../assets/bg2.png';
+import { useStyles } from "./HomeStyles";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+    const { classes } = useStyles();
+    const navigate = useNavigate();
 
-    return (
-        <div
-            style={{
-                flex: 1,
-                display: "flex",
-                alignItems: "center",
-                minHeight: "100%",
-            }}
-        >
-            <Grid>
-                <Grid.Col span={{ base: 12, md: 5 }}>
+return (
+    <Container size="xl" className={classes.container}>
+        <Grid gutter={{ base: 'md', md: 'xl' }} align="center">
+            <Grid.Col span={{ base: 12, md: 6 }}>
+                <Box className={classes.contentWrapper}>
+                    <Title
+                        className={classes.mainTitle}
+                        order={1}
+                    >
+                        <span className={classes.highlight}>BEM-VINDO À SHISHULU!</span>
+                    </Title>
 
                     <Title
-                        c="#FCC01D"
-                        style={{ fontSize: "clamp(2rem, 5vw, 3rem)" }}
-                        fw={900}
-                    >
-                        BEM-VINDO À SHISHULU!
-                    </Title>
-                    <Title c="#fff"
-                        style={{ fontSize: "clamp(2rem, 5vw, 3rem)" }}
-                        fw={900}
+                        className={classes.subtitle}
+                        order={2}
                     >
                         O povo e a cultura
                     </Title>
 
                     <Space h="xl" />
-                    <Text
-                        style={{
-                            fontSize: "clamp(1rem, 2vw, 1.4rem)",
-                            lineHeight: "1.6"
-                        }}
-                        c="#fff"
-                    >
-                        <strong>Shishulu</strong> é mais do que uma plataforma — é um movimento que preserva e celebra as tradições de Cabo Delgado. Aqui, a música, a dança, a gastronomia, a arte e a história encontram-se para dar vida às nossas raízes e inspirar novas gerações. Valorizamos cada som, cada cor e cada sabor da nossa terra, criando pontes entre passado e futuro, tradição e inovação. Junte-se a nós nesta jornada de orgulho e identidade, onde a cultura não é apenas lembrada, mas vivida todos os dias.
+
+                    <Text className={classes.description}>
+                        <strong>Shishulu</strong> é mais do que uma plataforma, é um
+                        movimento que preserva e celebra as tradições de Cabo Delgado.
+                        Aqui, a música, a dança, a gastronomia, a arte e a história
+                        encontram-se para dar vida às nossas raízes e inspirar novas
+                        gerações. Valorizamos cada som, cada cor e cada sabor da nossa
+                        terra, criando pontes entre passado e futuro, tradição e inovação.
                     </Text>
 
                     <Space h="xl" />
-                    <Button bg="#FCC01D" c="#000" size="md">Iscrever-se</Button>
-                </Grid.Col>
-                <Grid.Col span={{ base: 12, md: 7 }}>
+
+                    <Box className={classes.ctaWrapper}>
+                        <Button
+                            size="lg"
+                            className={classes.ctaButton}
+                            onClick={() => navigate("/inscricao")}
+                        >
+                            Inscrever-se
+                        </Button>
+                        <Button
+                            size="lg"
+                            variant="outline"
+                            className={classes.secondaryButton}
+                            onClick={() => navigate("/sobre")}
+                        >
+                            Saber Mais
+                        </Button>
+                    </Box>
+                </Box>
+            </Grid.Col>
+
+            <Grid.Col span={{ base: 12, md: 6 }}>
+                <Box className={classes.imageWrapper}>
                     <img
                         src={bg}
-                        style={{
-                            width: "100%",
-                            height: "auto", // mantém proporção
-                            objectFit: "cover",
-                            borderRadius: "8px",
-                        }}
-                        alt="Shishulu Cultura"
+                        className={classes.heroImage}
+                        alt="Shishulu - Cultura de Cabo Delgado"
+                        loading="lazy"
                     />
-                </Grid.Col>
-            </Grid>
-        </div>
-    )
+                    <Box className={classes.imageOverlay} />
+                </Box>
+            </Grid.Col>
+        </Grid>
+    </Container>
+);
 }
