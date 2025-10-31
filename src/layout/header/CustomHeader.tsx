@@ -1,4 +1,4 @@
-import { Group, Text, Switch, Burger, Box, Container, Drawer, Stack, Divider } from '@mantine/core';
+import { Group, Text, Switch, Burger, Box, Container, Drawer, Stack } from '@mantine/core';
 import { Moon, Sun } from 'lucide-react';
 import { useStyles } from './customHeader.style';
 import { useState } from 'react';
@@ -111,29 +111,36 @@ export default function CustomHeader() {
                 }
                 overlayProps={{ opacity: 0.5, blur: 4 }}
                 styles={{
+                    content: {
+                        backgroundColor: "#20364B",
+                        height: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                    },
                     header: {
-                        backgroundColor: '#20364B',
-                        borderBottom: '1px solid rgba(252, 192, 29, 0.2)',
+                        backgroundColor: "#20364B",
+                        borderBottom: "1px solid rgba(252, 192, 29, 0.2)",
                     },
                     body: {
-                        backgroundColor: '#20364B',
+                        backgroundColor: "#20364B",
                         padding: 0,
+                        flex: 1,
+                        display: "flex",
+                        flexDirection: "column",
                     },
                     title: {
-                        width: '100%',
+                        width: "100%",
                     },
                     close: {
-                        color: '#FCC01D',
-                        '&:hover': {
-                            backgroundColor: 'rgba(252, 192, 29, 0.1)',
+                        color: "#FCC01D",
+                        "&:hover": {
+                            backgroundColor: "rgba(252, 192, 29, 0.1)",
                         },
                     },
                 }}
             >
                 <Stack gap={0} className={classes.mobileMenu}>
                     {mobileItems}
-
-                    <Divider my="md" color="rgba(252, 192, 29, 0.2)" />
 
                     <Box className={classes.mobileThemeSwitch}>
                         <Text c="#fff" size="sm" fw={500}>

@@ -93,8 +93,8 @@ export const useStyles = createStyles((theme) => ({
         fontWeight: 700,
         fontSize: rem(16),
         height: rem(50),
-        paddingLeft: rem(32),
-        paddingRight: rem(32),
+        paddingLeft: rem(22),
+        paddingRight: rem(22),
         borderRadius: rem(8),
         transition: "all 0.3s ease",
 
@@ -115,8 +115,8 @@ export const useStyles = createStyles((theme) => ({
         fontWeight: 600,
         fontSize: rem(16),
         height: rem(50),
-        paddingLeft: rem(32),
-        paddingRight: rem(32),
+        paddingLeft: rem(22),
+        paddingRight: rem(22),
         borderRadius: rem(8),
         transition: "all 0.3s ease",
 

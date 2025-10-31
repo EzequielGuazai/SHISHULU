@@ -42,7 +42,23 @@ export const useStyles = createStyles((theme) => ({
   },
 
   mobileMenu: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    height: "100%",
+    backgroundColor: "#20364B",
     padding: `${rem(8)} 0`,
+  },
+
+  mobileThemeSwitch: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: `${rem(16)} ${rem(24)}`,
+    backgroundColor: "rgba(255, 255, 255, 0.05)",
+    borderRadius: rem(8),
+    margin: `${rem(8)} ${rem(16)}`,
+    marginTop: "auto", // Faz ele ir para o fundo do Drawer
   },
 
   mobileLink: {
@@ -72,16 +88,6 @@ export const useStyles = createStyles((theme) => ({
     "&:active": {
       backgroundColor: "rgba(252, 192, 29, 0.15)",
     },
-  },
-
-  mobileThemeSwitch: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: `${rem(16)} ${rem(24)}`,
-    backgroundColor: "rgba(255, 255, 255, 0.05)",
-    margin: `${rem(8)} ${rem(16)}`,
-    borderRadius: rem(8),
   },
 
   switch: {
